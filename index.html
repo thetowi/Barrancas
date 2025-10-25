@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reservas - Restaurante</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="container">
+
+    <!-- 🏠 Menú principal -->
+    <section id="menu-principal">
+      <h1>Barrancas Restaurant</h1>
+      <button id="btnNew">Hacer una nueva reserva</button>
+      <button id="btnView">Ver reservas</button>
+    </section>
+
+    <!-- 🆕 Nueva reserva (formulario) -->
+    <section id="nueva-reserva" style="display:none;">
+      <div class="toolbar">
+        <button id="btnBackForm" class="icon-btn">←</button>
+        <div class="toolbar-center"><h2>Nueva reserva</h2></div>
+        <div class="toolbar-right"></div>
+      </div>
+
+      <form id="formReserva">
+        <div class="form-grid">
+          <label>Fecha</label>
+          <input type="date" id="resFecha" required>
+
+          <label>Hora</label>
+          <div id="selectorHora" class="hora-grid"></div>
+          <input type="hidden" id="resHora" required>
+
+
+          <label>Turno</label>
+          <select id="resTurno" required>
+            <option value="">Seleccionar</option>
+            <option value="almuerzo">Almuerzo</option>
+            <option value="merienda">Merienda</option>
+            <option value="cena">Cena</option>
+          </select>
+
+          <label>Mesa</label>
+          <input type="text" id="resMesa" placeholder="Opcional">
+
+
+          <label>Pax</label>
+          <input type="number" id="resPax" min="1" required>
+
+          <label>Apellido / Nombre</label>
+          <input type="text" id="resNombre" required>
+
+          <label>Teléfono / Habitación</label>
+          <input type="text" id="resTel">
+
+          <label>Comentarios</label>
+          <textarea id="resComent" rows="2"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Guardar reserva</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 📋 Tabla de reservas -->
+    <section id="tabla-reservas" style="display:none;">
+      <!-- Barra superior -->
+      <div class="toolbar">
+        <button id="btnBack" class="icon-btn" title="Volver">←</button>
+
+        <div class="toolbar-center">
+          <input type="date" id="fechaSeleccion" />
+        </div>
+
+        <div class="toolbar-right">
+          <span id="diaTexto">—</span>
+        </div>
+      </div>
+
+      <!-- Controles de rango horario -->
+      
+
+      <!-- Tabla -->
+      <div class="sheet-wrap">
+        <table class="sheet" id="tabla"></table>
+      </div>
+    </section>
+
+  </div> <!-- /container -->
+
+  <script src="script.js"></script>
+  <div id="successAnimation">✔</div>
+
+</body>
+</html>
