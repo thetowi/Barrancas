@@ -73,7 +73,11 @@
         <button id="btnBack" class="icon-btn" title="Volver">←</button>
 
         <div class="toolbar-center">
-          <input type="date" id="fechaSeleccion" />
+          <div id="turnoSelector">
+            <button id="btnAlmuerzo" class="turno-btn">Almuerzo</button>
+            <input type="date" id="fechaSeleccion" />
+            <button id="btnCena" class="turno-btn active">Cena</button>
+          </div>
         </div>
 
         <div class="toolbar-right">
@@ -94,6 +98,7 @@
 
   <script src="script.js"></script>
   <div id="successAnimation">✔</div>
-
+  <!-- 🌗 Botón modo oscuro / claro -->
+  <button id="modoToggle" class="modo-toggle" title="Cambiar modo">🌙</button>
 </body>
 </html>

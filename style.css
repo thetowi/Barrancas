@@ -567,3 +567,85 @@ body.mode-table #container {
 .mesa-ocupada-visual:hover::after {
   opacity: 0;
 }
+
+/* ====== Botones de turno (almuerzo / cena) ====== */
+#turnoSelector {
+  display: flex;
+  gap: 100px;
+  margin-right: 100px;
+}
+
+.turno-btn {
+  padding: 6px 14px;
+  border: 1px solid #C79C6E;
+  background-color: #fff;
+  color: #333;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.turno-btn.active {
+  background: linear-gradient(135deg, #C79C6E, #d8b78a);
+  color: white;
+  border-color: #b5894f;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.turno-btn:hover {
+  transform: scale(1.05);
+}
+
+/* ======= 🌗 Botón modo oscuro / claro ======= */
+.modo-toggle {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  background: #f0f0f0;
+  border: 2px solid #c7a97b;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.modo-toggle:hover {
+  transform: scale(1.1);
+  background: #fff2d6;
+}
+
+/* 🌙 Estilo general modo oscuro */
+body.modo-oscuro {
+  background-color: #1e1e1e;
+  color: #f2f2f2;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.modo-oscuro table,
+body.modo-oscuro input,
+body.modo-oscuro select,
+body.modo-oscuro textarea {
+  background-color: #292929;
+  color: #f2f2f2;
+  border-color: #555;
+}
+
+body.modo-oscuro th {
+  background-color: #3a3a3a;
+}
+
+body.modo-oscuro .modo-toggle {
+  background-color: #787878;
+  color: #f9f9f9;
+  border-color: #bba46a;
+}
+
+body.modo-oscuro .modo-toggle:hover {
+  background: rgb(78, 78, 78);
+}

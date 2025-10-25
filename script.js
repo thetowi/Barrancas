@@ -20,7 +20,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // ======== CONFIG ========
   const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
   let reservas = []; // base de datos temporal
+  // ======== SELECTOR DE TURNO (almuerzo/cena) ========
+  let turnoActual = 'cena'; // por defecto
 
+  const btnAlmuerzo = document.getElementById('btnAlmuerzo');
+  const btnCena = document.getElementById('btnCena');
+
+  if (btnAlmuerzo && btnCena) {
+    btnAlmuerzo.addEventListener('click', () => {
+      turnoActual = 'almuerzo';
+      btnAlmuerzo.classList.add('active');
+      btnCena.classList.remove('active');
+      renderTabla();
+    });
+
+    btnCena.addEventListener('click', () => {
+      turnoActual = 'cena';
+      btnCena.classList.add('active');
+      btnAlmuerzo.classList.remove('active');
+      renderTabla();
+    });
+  }
   // ======== FUNCIONES AUXILIARES ========
   function nombreDia(fecha) {
     const partes = fecha.split('-');
@@ -85,15 +105,29 @@ document.addEventListener('DOMContentLoaded', () => {
   // ======== FUNCIÓN PRINCIPAL: GENERAR TABLA DE RESERVAS ========
 // ======== FUNCIÓN PRINCIPAL: GENERAR TABLA DE RESERVAS ========
   function renderTabla() {
-  const asignacion = [
-    {hora:"20:30", mesa:11}, {hora:"20:30", mesa:12}, {hora:"20:30", mesa:13}, {hora:"20:30", mesa:14},
-    {hora:"20:45", mesa:21}, {hora:"20:45", mesa:22}, {hora:"20:45", mesa:23},
-    {hora:"21:00", mesa:24}, {hora:"21:00", mesa:31}, {hora:"21:00", mesa:32}, {hora:"21:00", mesa:33},
-    {hora:"21:15", mesa:40}, {hora:"21:15", mesa:41}, {hora:"21:15", mesa:42},
-    {hora:"21:30", mesa:43}, {hora:"21:30", mesa:44}, {hora:"21:30", mesa:45}, {hora:"21:30", mesa:46},
-    {hora:"21:45", mesa:47}, {hora:"21:45", mesa:50}, {hora:"21:45", mesa:51}, {hora:"21:45", mesa:52},
-    {hora:"22:00", mesa:53}, {hora:"22:00", mesa:54}, {hora:"22:00", mesa:55}, {hora:"22:00", mesa:60}
-  ];
+  let asignacion = [];
+
+  if (turnoActual === 'almuerzo') {
+    asignacion = [
+      {hora:"12:30", mesa:11}, {hora:"12:30", mesa:12}, {hora:"12:30", mesa:13}, {hora:"12:30", mesa:14},
+      {hora:"12:45", mesa:21}, {hora:"12:45", mesa:22}, {hora:"12:45", mesa:23}, {hora:"12:45", mesa:24},
+      {hora:"13:00", mesa:31}, {hora:"13:00", mesa:32}, {hora:"13:00", mesa:33}, {hora:"13:00", mesa:40},
+      {hora:"13:15", mesa:41}, {hora:"13:15", mesa:42}, {hora:"13:15", mesa:43}, {hora:"13:15", mesa:44},
+      {hora:"13:30", mesa:45}, {hora:"13:30", mesa:46}, {hora:"13:30", mesa:47},
+      {hora:"13:45", mesa:50}, {hora:"13:45", mesa:51}, {hora:"13:45", mesa:52},
+      {hora:"14:00", mesa:53}, {hora:"14:00", mesa:54}, {hora:"14:00", mesa:55}, {hora:"14:00", mesa:60}
+    ];
+  } else {
+    asignacion = [
+      {hora:"20:30", mesa:11}, {hora:"20:30", mesa:12}, {hora:"20:30", mesa:13}, {hora:"20:30", mesa:14},
+      {hora:"20:45", mesa:21}, {hora:"20:45", mesa:22}, {hora:"20:45", mesa:23},
+      {hora:"21:00", mesa:24}, {hora:"21:00", mesa:31}, {hora:"21:00", mesa:32}, {hora:"21:00", mesa:33},
+      {hora:"21:15", mesa:40}, {hora:"21:15", mesa:41}, {hora:"21:15", mesa:42},
+      {hora:"21:30", mesa:43}, {hora:"21:30", mesa:44}, {hora:"21:30", mesa:45}, {hora:"21:30", mesa:46},
+      {hora:"21:45", mesa:47}, {hora:"21:45", mesa:50}, {hora:"21:45", mesa:51}, {hora:"21:45", mesa:52},
+      {hora:"22:00", mesa:53}, {hora:"22:00", mesa:54}, {hora:"22:00", mesa:55}, {hora:"22:00", mesa:60}
+    ];
+  }
 
   const listaMesasDisponibles = [11,12,13,14,21,22,23,24,31,32,33,40,41,42,43,44,45,46,47,50,51,52,53,54,55,60];
   const paxPorMesa = {
@@ -149,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <option>Mariana</option>
             <option>Caty</option>
             <option>Jose maria</option>
+            <option>Matias</option>
             <option>Raquel</option>
           </select>
         </td>
@@ -360,4 +395,21 @@ document.addEventListener('DOMContentLoaded', () => {
       cont.appendChild(b);
     });
   }
+    // ======= 🌗 MODO OSCURO / CLARO =======
+  const modoToggle = document.getElementById('modoToggle');
+
+  // Cargar preferencia guardada (si la hay)
+  if (localStorage.getItem('modo') === 'oscuro') {
+    document.body.classList.add('modo-oscuro');
+    modoToggle.textContent = '☀️';
+  }
+
+  // Cambiar modo al hacer clic
+  modoToggle.addEventListener('click', () => {
+    document.body.classList.toggle('modo-oscuro');
+    const esOscuro = document.body.classList.contains('modo-oscuro');
+    modoToggle.textContent = esOscuro ? '☀️' : '🌙';
+    localStorage.setItem('modo', esOscuro ? 'oscuro' : 'claro');
+  });
+
 });
