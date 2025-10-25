@@ -1,0 +1,569 @@
+/* ====== GENERAL ====== */
+body {
+  background-color: #f3f5f7;
+  font-family: "Segoe UI", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+/* ====== CONTENEDOR CENTRAL ====== */
+#container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  backdrop-filter: blur(4px);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  transition: width 0.4s ease, max-width 0.4s ease, border-radius 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("logo.png") repeat;
+  background-size: 150px 150px;
+  background-color: #f3f5f7;
+  filter: blur(3px);
+  opacity: 0.25;
+  z-index: -1;
+}
+
+/* ====== MODO TABLA (expande a pantalla completa) ====== */
+body.mode-table {
+  align-items: flex-start;
+  padding-top: 0;
+  background: #fff;
+}
+
+body.mode-table #container {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.1);
+  min-height: 100vh;
+}
+
+/* ====== TOOLBAR ====== */
+.toolbar {
+  display: grid;
+  grid-template-columns: 60px 1fr 100px;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 6px;
+}
+
+.icon-btn {
+  justify-self: start;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  border: 1px solid #ffffff;
+  background: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.icon-btn:hover { background: #eee; }
+
+.toolbar-center {
+  display: flex;
+  justify-content: center;
+}
+
+.toolbar-center input[type="date"] {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.toolbar-right {
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+}
+
+/* ===== BOTONES PRINCIPALES ===== */
+#btnNew, #btnView {
+  background: linear-gradient(190deg, #e3dad0, #ca7e2da8);
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 15px 20px;
+  width: 250px;
+  transition: 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+#btnNew:hover, #btnView:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+}
+
+#btnNew:active, #btnView:active {
+  transform: scale(0.98);
+}
+
+#menu-principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== DIA DE TEXTO ===== */
+#diaTexto {
+  font-size: 30px;
+  font-weight: 700;
+  color: #000000;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: inline-block;
+  backdrop-filter: blur(3px);
+  transition: 0.3s ease;
+}
+
+#diaTexto:hover {
+  transform: scale(1.2);
+  transition: all 1.0s ease;
+}
+
+/* ====== FORMULARIO NUEVA RESERVA ====== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px 15px;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.form-grid label {
+  font-weight: 600;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background: #C79C6E;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.btn-primary:hover {
+  background: #b1845f;
+}
+
+/* ====== SELECTOR DE HORAS ====== */
+.hora-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+.hora-btn {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #f9f9f9;
+  transition: 0.2s;
+}
+.hora-btn:hover {
+  background: #C79C6E;
+  color: white;
+}
+.hora-btn.active {
+  background: #C79C6E;
+  color: white;
+}
+
+/* ====== ANIMACIÓN DE ÉXITO ====== */
+#successAnimation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #2ecc71;
+  font-size: 60px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+  z-index: 9999;
+}
+
+#successAnimation.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* ======== TABLA AJUSTABLE AL CONTENIDO ======== */
+
+.sheet-wrap {
+  width: 100%;
+  height: calc(100vh - 50px);
+  overflow: auto;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+#tabla {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed; /* ← se adapta al contenido */
+  font-size: 13px;
+}
+
+/* Encabezado */
+#tabla thead th {
+  background-color: #c38542a8;
+  color: rgb(0, 0, 0);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 3px 3px;
+  white-space: nowrap;
+}
+
+/* Bordes y celdas */
+#tabla th, #tabla td {
+  border: 1px solid #ddd;
+  padding: 1px 1px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* Celdas más compactas según el tipo */
+#tabla td:nth-child(1), /* Hora */
+#tabla td:nth-child(2), /* Mesa */
+#tabla td:nth-child(7)  /* Asistió */
+{
+  width: 1px;
+  text-align: center;
+}
+
+#tabla td:nth-child(3) { /* PAX */
+  width: 50px;
+  text-align: center;
+}
+
+#tabla td:nth-child(4), /* Nombre */
+#tabla td:nth-child(6)  /* Comentarios */
+{
+  width: 180px;
+}
+
+#tabla td:nth-child(5) { /* Hab/Tel */
+  width: 130px;
+}
+
+#tabla td:nth-child(8) { /* Mesas disponibles */
+  width: 80px;
+  text-align: center;
+}
+
+.mesa-disponible.ocupada {
+  text-decoration: line-through;
+  color: #000000;
+  font-weight: 600;
+}
+
+#tabla td:nth-child(9) { /* Responsable */
+  width: 120px;
+}
+
+/* Inputs compactos */
+#tabla input, #tabla select {
+  width: 100%;
+  font-size: 14px;
+  padding: 3px 5px;
+  border: 1px solid #a6a6a6;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Checkbox centrado */
+#tabla input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  display: block;
+}
+
+/* Pie de tabla fijo */
+#tabla tfoot {
+  position: sticky;
+  bottom: 0;
+  background-color: #c38542a8;
+  font-weight: 600;
+}
+
+/* 🔧 Prioridad visual: formulario sobre el fondo */
+#nueva-reserva {
+  position: relative;
+  z-index: 2; /* más alto que el fondo difuminado */
+}
+
+/* 🔧 Asegura que el contenedor no tape otras secciones */
+#container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Tooltip estético */
+#tabla td[title] {
+  position: relative;
+}
+
+#tabla td[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f4e3c1;
+  color: #000;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+
+
+/* 🔴 Mesa ocupada (ya asignada a una reserva) */
+#tabla td.mesa-ocupada {
+  background-color: #f8b2b2 !important; /* rojo claro */
+  color: #7a0000;
+  text-decoration: line-through;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+/* 🔳 Opcional: resaltar si están marcados */
+#tabla input[type="checkbox"]:checked {
+  accent-color: #2e7d32; /* verde oscuro, moderno */
+}
+
+/* ====== Ajuste de anchos por tipo de columna ====== */
+#tabla th:nth-child(1), /* HORA */
+#tabla td:nth-child(1) {
+  width: 60px;
+}
+
+#tabla th:nth-child(2), /* MESA */
+#tabla td:nth-child(2) {
+  width: 50px;
+}
+
+#tabla th:nth-child(3), /* PAX */
+#tabla td:nth-child(3) {
+  width: 50px;
+}
+
+#tabla th:nth-child(4), /* APELLIDO/NOMBRE */
+#tabla td:nth-child(4) {
+  width: 200px;
+}
+
+#tabla th:nth-child(5), /* HAB/TEL */
+#tabla td:nth-child(5) {
+  width: 150px;
+}
+
+#tabla th:nth-child(6), /* COMENTARIOS */
+#tabla td:nth-child(6) {
+  width: 180px;
+}
+
+#tabla th:nth-child(7), /* ASISTIÓ */
+#tabla td:nth-child(7),
+#tabla th:nth-child(8), /* PIDIÓ MESA */
+#tabla td:nth-child(8),
+#tabla th:nth-child(10), /* OCUPAR */
+#tabla td:nth-child(10) {
+  width: 50px;
+  text-align: center;
+}
+
+#tabla th:nth-child(9), /* MESAS DISPONIBLES */
+#tabla td:nth-child(9) {
+  width: 90px;
+  text-align: center;
+}
+
+#tabla th:nth-child(11), /* RESPONSABLE */
+#tabla td:nth-child(11) {
+  width: 140px;
+}
+
+.fila-asistio {
+  background-color: #d2f8d2 !important;
+  transition: background-color 0.3s ease;
+}
+
+.mesa-ocupada {
+  background-color: #ffb3b3 !important;
+  text-decoration: line-through;
+  transition: background-color 0.3s ease;
+}
+/* Fila marcada como asistió */
+#tabla tr.fila-asistio {
+  background-color: #c4f0c2 !important; /* verde suave */
+  transition: background-color 0.3s ease;
+}
+
+/* Opcional: efecto hover más sutil para no tapar el verde */
+#tabla tr.fila-asistio:hover {
+  background-color: #a7e6a5 !important;
+}
+/* 🔹 Estilo visual para las filas con asistencia confirmada */
+#tabla tr.fila-asistio {
+  background-color: #c8f7c5 !important;  /* verde suave */
+  transition: background-color 0.3s ease;
+}
+
+/* 🔹 Cambiar color de inputs y selects dentro de filas asistidas */
+#tabla tr.fila-asistio input,
+#tabla tr.fila-asistio select,
+#tabla tr.fila-asistio textarea {
+  background-color: #d9fdd3 !important;  /* verde más claro para contraste */
+  border-color: #98d692;
+  color: #1a3e1a;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 🔹 Hover más oscuro si se pasa el mouse */
+#tabla tr.fila-asistio:hover {
+  background-color: #a9e8a2 !important;
+}
+#tabla tr.fila-asistio input,
+#tabla tr.fila-fila-asistio select {
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.15);
+}
+
+/* 🔹 Estilo visual del input bloqueado */
+.mesa-bloqueada {
+  background-color: #ff5e5e !important;  /* Amarillo claro */
+  border-color: #000000;
+  color: #000000;
+  cursor: not-allowed;
+}
+
+.mesa-bloqueada-wrap {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Tooltip */
+.mesa-bloqueada-wrap:hover::after {
+  content: "La mesa está solicitada";
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Flechita */
+.mesa-bloqueada-wrap:hover::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+  opacity: 0.95;
+}
+
+/* 🔹 Estilo visual de la mesa ocupada */
+/* 🔹 Estilo visual de la mesa ocupada */
+.mesa-ocupada-visual {
+  background-color: #f5c6cb; /* rojo claro */
+  color: transparent; /* oculta el número de mesa */
+  text-decoration: line-through;
+  position: relative;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+/* 🔹 Texto "Ocupada" visible por defecto */
+.mesa-ocupada-visual::after {
+  content: "Ocupada";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0);
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0.95;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* 🔹 Al pasar el mouse: muestra número y oculta texto "Ocupada" */
+.mesa-ocupada-visual:hover {
+  color: #6a0000; /* reaparece el número */
+  text-decoration: none;
+}
+
+.mesa-ocupada-visual:hover::after {
+  opacity: 0;
+}
