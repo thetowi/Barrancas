@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
           mesasDisponiblesCeldas.forEach(celda => {
             celda.classList.toggle(
               'mesa-ocupada',
-              mesasAsignadas.some(i => i.value.trim() === celda.textContent.trim())
+              Array.from(mesasAsignadas).some(i => i.value.trim() === celda.textContent.trim())
             );
           });
         });
@@ -740,34 +740,62 @@ document.addEventListener('DOMContentLoaded', () => {
     menu.style.display = 'block';
     document.body.classList.remove('mode-table');
   });
+  // Tooltip flotante único
+  let _miniAlertEl = null;
 
-    function mostrarMiniAlertaLocal(input, texto) {
-      // Eliminar alerta previa si existe
-      const alertaExistente = document.querySelector('.mini-alert-local');
-      if (alertaExistente) alertaExistente.remove();
-
-      // Calcular posición del input
-      const rect = input.getBoundingClientRect();
-      const alerta = document.createElement('div');
-      alerta.className = 'mini-alert-local';
-      alerta.textContent = texto;
-
-      // Posicionar flotante encima del input
-      Object.assign(alerta.style, {
-        position: 'absolute',
-        top: `${rect.bottom + window.scrollY + 4}px`,
-        left: `${rect.left + window.scrollX}px`,
-        zIndex: 9999
-      });
-
-      document.body.appendChild(alerta);
-
-      // Ocultar automáticamente
-      setTimeout(() => {
-        alerta.classList.add('ocultar');
-        setTimeout(() => alerta.remove(), 300);
-      }, 2500);
+  function mostrarMiniAlertaLocal(input, texto) {
+    // crear elemento si no existe
+    if (!_miniAlertEl) {
+      _miniAlertEl = document.createElement('div');
+      _miniAlertEl.className = 'mini-alert-local';
+      document.body.appendChild(_miniAlertEl);
     }
+    _miniAlertEl.textContent = texto;
+    _miniAlertEl.style.display = 'block';
+    _miniAlertEl.classList.remove('ocultar');
+
+    // posicionar relativo al viewport (position: fixed)
+    const rect = input.getBoundingClientRect();
+    const espacio = 6; // separación bajo el input
+    const top = rect.bottom + espacio;      // px desde top de la ventana
+    let left = rect.left;                   // px desde left de la ventana
+
+    // evitar que se salga por la derecha
+    const maxLeft = window.innerWidth - 12; // margen
+    _miniAlertEl.style.left = '0px'; // reset para medir ancho real
+    _miniAlertEl.style.top  = '-9999px';
+    _miniAlertEl.style.position = 'fixed';
+    document.body.offsetHeight; // forzar layout
+    const ancho = _miniAlertEl.offsetWidth;
+    if (left + ancho > maxLeft) left = Math.max(12, maxLeft - ancho);
+
+    _miniAlertEl.style.top  = `${top}px`;
+    _miniAlertEl.style.left = `${left}px`;
+    _miniAlertEl.style.zIndex = 999999;
+
+    // auto-ocultar
+    clearTimeout(_miniAlertEl._t);
+    _miniAlertEl._t = setTimeout(() => {
+      _miniAlertEl.classList.add('ocultar');
+      setTimeout(() => { _miniAlertEl.style.display = 'none'; }, 300);
+    }, 2500);
+
+    // si se hace scroll/resize mientras está visible, la reposicionamos
+    const reposicionar = () => {
+      if (_miniAlertEl && _miniAlertEl.style.display === 'block') {
+        const r = input.getBoundingClientRect();
+        let l = r.left;
+        const w = _miniAlertEl.offsetWidth;
+        if (l + w > window.innerWidth - 12) l = Math.max(12, window.innerWidth - 12 - w);
+        _miniAlertEl.style.top  = `${r.bottom + espacio}px`;
+        _miniAlertEl.style.left = `${l}px`;
+      }
+    };
+    window.requestAnimationFrame(reposicionar);
+    window.addEventListener('scroll', reposicionar, { passive: true, once: true });
+    window.addEventListener('resize', reposicionar, { passive: true, once: true });
+  }
+
 
 
 
