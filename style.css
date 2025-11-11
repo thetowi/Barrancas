@@ -65,8 +65,8 @@ body.mode-table #container {
 
 .icon-btn {
   justify-self: start;
-  width: 64px;
-  height: 64px;
+  width: 40px;
+  height: 40px;
   border-radius: 12px;
   border: 1px solid #ffffff;
   background: #ffffff;
@@ -92,10 +92,11 @@ body.mode-table #container {
   text-align: right;
   font-weight: bold;
   color: #333;
+  flex-grow: 2;
 }
 
 /* ===== BOTONES PRINCIPALES ===== */
-#btnNew, #btnView {
+#btnNew, #btnView, #btnLogout {
   background: linear-gradient(190deg, #e3dad0, #ca7e2da8);
   color: rgb(0, 0, 0);
   border: none;
@@ -110,12 +111,12 @@ body.mode-table #container {
   box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
-#btnNew:hover, #btnView:hover {
+#btnNew:hover, #btnView:hover, #btnLogout:hover {
   transform: scale(1.05);
   box-shadow: 0 5px 12px rgba(0,0,0,0.3);
 }
 
-#btnNew:active, #btnView:active {
+#btnNew:active, #btnView:active, #btnLogout:active {
   transform: scale(0.98);
 }
 
@@ -132,7 +133,6 @@ body.mode-table #container {
   font-weight: 700;
   color: #000000;
   text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  display: inline-block;
   backdrop-filter: blur(3px);
   transition: 0.3s ease;
 }
@@ -648,4 +648,144 @@ body.modo-oscuro .modo-toggle {
 
 body.modo-oscuro .modo-toggle:hover {
   background: rgb(78, 78, 78);
+}
+
+/* CSS */
+.btn-guardar {
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn-guardar:hover {
+  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.login-box {
+  background: #faf7f2;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  text-align: center;
+  min-width: 280px;
+}
+.login-box input {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(190deg, #e3dad0, #ca7e2da8);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+.login-box button:hover { background: linear-gradient(190deg, #e3dad0, #ca7e2da8); }
+
+.turno-selector {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.turno-btn {
+  background: linear-gradient(190deg, #e3dad0, #ca7e2da8);
+  color: rgb(0, 0, 0);
+  border: none;
+  margin: 1px 20px 1px 20px;
+  gap: 20px; /* 👈 probá 20px, más separación */
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.9s ease; /* 👈 animación suave */
+}
+
+.turno-btn:hover {
+  background: linear-gradient(190deg, #e3dad0, #ca7e2da8);
+}
+
+.turno-btn.active {
+  background: linear-gradient(190deg, #e3dad0, #ca7e2da8);
+  transform: scale(1.2); /* 👈 se agranda un poquito */
+
+}
+
+.mensaje-reserva {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  border-radius: 8px;
+  padding: 20px 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 500;
+  animation: aparecer 0.3s ease;
+}
+
+.mensaje-reserva.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mini-alert-local {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-top: 4px;
+  padding: 4px 8px;
+  width: max-content;
+  animation: aparecer 0.2s ease;
+  pointer-events: none; /* no bloquea clics debajo */
+}
+
+.mini-alert-local.ocultar {
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }

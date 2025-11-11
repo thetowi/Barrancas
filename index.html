@@ -8,13 +8,29 @@
 </head>
 
 <body>
+  <div id="login-container" class="login-overlay">
+    <div class="login-box">
+      <h2>Acceso Reservas</h2>
+      <input type="text" id="loginUser" placeholder="Usuario">
+      <input type="password" id="loginPass" placeholder="Contraseña">
+      <label><input type="checkbox" id="rememberMe"> Recordar sesión</label>
+      <button id="loginBtn">Ingresar</button>
+      <p id="loginError" style="color:red;display:none;">Usuario o contraseña incorrectos</p>
+    </div>
+  </div>
+
+
+
   <div id="container">
 
     <!-- 🏠 Menú principal -->
     <section id="menu-principal">
       <h1>Barrancas Restaurant</h1>
-      <button id="btnNew">Hacer una nueva reserva</button>
-      <button id="btnView">Ver reservas</button>
+      <div class="Botones superiores">
+        <button id="btnNew" type="button">Hacer una nueva reserva</button>
+        <button id="btnView" type="button">Ver reservas</button>
+      </div>
+      <button id="btnLogout" onclick="cerrarSesion()">Cerrar sesión</button>
     </section>
 
     <!-- 🆕 Nueva reserva (formulario) -->
@@ -31,17 +47,17 @@
           <input type="date" id="resFecha" required>
 
           <label>Hora</label>
-          <div id="selectorHora" class="hora-grid"></div>
+          <div id="selectorHora" class="hora-grid" style="display:none;"></div>
           <input type="hidden" id="resHora" required>
 
 
           <label>Turno</label>
-          <select id="resTurno" required>
-            <option value="">Seleccionar</option>
-            <option value="almuerzo">Almuerzo</option>
-            <option value="merienda">Merienda</option>
-            <option value="cena">Cena</option>
-          </select>
+          <div id="turnoButtons" class="turno-selector">
+            <button type="button" class="turno-btn" data-turno="almuerzo">Almuerzo</button>
+            <button type="button" class="turno-btn" data-turno="merienda">Merienda</button>
+            <button type="button" class="turno-btn" data-turno="cena">Cena</button>
+          </div>
+          <input type="hidden" id="resTurno"  value="almuerzo" required>
 
           <label>Mesa</label>
           <input type="text" id="resMesa" placeholder="Opcional">
@@ -61,6 +77,7 @@
         </div>
 
         <div class="form-actions">
+          <div id="mensajeReserva" class="mensaje-reserva" style="display:none;"></div>
           <button type="submit" class="btn-primary">Guardar reserva</button>
         </div>
       </form>
@@ -96,9 +113,36 @@
 
   </div> <!-- /container -->
 
-  <script src="script.js"></script>
+
+
   <div id="successAnimation">✔</div>
   <!-- 🌗 Botón modo oscuro / claro -->
-  <button id="modoToggle" class="modo-toggle" title="Cambiar modo">🌙</button>
+  <button id="modoToggle" class="modo-toggle" title="Cambiar modo">🌙</button>  
+  <!-- Importamos la base de datos de firebase -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQflJmUVriD7KlWWehRXMsfh67OO6z8Og",
+      authDomain: "reservas-barrancas.firebaseapp.com",
+      databaseURL: "https://reservas-barrancas-default-rtdb.firebaseio.com",
+      projectId: "reservas-barrancas",
+      storageBucket: "reservas-barrancas.firebasestorage.app",
+      messagingSenderId: "726809821801",
+      appId: "1:726809821801:web:cb0d3bdb0838f7f4b558f8",
+      measurementId: "G-RSPBGQ3MLB"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
